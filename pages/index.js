@@ -3,31 +3,41 @@ import { useState } from 'react'
 
 const Home = () => {
   const [userInput, setUserInput] = useState('')
+  const [userActivity, setUserActivity] = useState('')
+  const [apiCall, setApiCall] = useState('')
   const [apiOutput, setApiOutput] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
 
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
-    
+    console.log(apiCall)
     console.log("Calling OpenAI...")
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userInput }),
+      body: JSON.stringify({ apiCall }),
     });
 
     const data = await response.json();
     const { output } = data;
     console.log("OpenAI replied...", output.text)
 
-    setApiOutput(`${output.text}`);
+    
+    let activitiesArray = `${output.text}`.split(/\d+\./).slice(1)
+    setApiOutput(activitiesArray)
     setIsGenerating(false);
   }
 
   const onUserChangedText = (event) => {
     setUserInput(event.target.value)
+    setApiCall(`${userInput} if you like ${userActivity}`)
+  } 
+
+  const onUserChangedActivity = (event) => {
+    setUserActivity(event.target.value)
+    setApiCall(`${userInput} if you like ${userActivity}`)
   } 
 
   return (
@@ -38,18 +48,24 @@ const Home = () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Your City Guide</h1>
+            <h1>Travel GPT</h1>
           </div>
           <div className="header-subtitle">
             <h2>Enter a city and find some of the most exciting travel ideas</h2>
           </div>
           <div className="prompt-container">
-            <textarea 
-              placeholder="start typing here" 
+            <input 
+              placeholder="Enter Location" 
               className="prompt-box" 
               value={userInput}
               onChange={onUserChangedText}
             />
+            <input 
+                placeholder="Enter Activity" 
+                className="prompt-box" 
+                value={userActivity}
+                onChange={onUserChangedActivity}
+              />
           </div>
           <div className="prompt-buttons">
             <a
@@ -64,12 +80,18 @@ const Home = () => {
           {apiOutput && (
             <div className="output">
               <div className="output-header-container">
-                <div className="output-header">
-                  <h3>Output</h3>
-                </div>
+                <h1>Your Activities</h1>
               </div>
               <div className="output-content">
-                <p>{apiOutput}</p>
+                {apiOutput.map((item) => {
+                  let itemData = item.split(":")
+                    return (
+                      <div className="activity-container">
+                        <h2>{itemData[0]}</h2>
+                        <p>{itemData[1]}</p>
+                      </div>
+                    )
+                  })}
               </div>
             </div>
           )}
