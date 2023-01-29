@@ -13,7 +13,12 @@ const generateAction = async (req, res) => {
 
   const baseCompletion = await openai.createCompletion({
     model: 'text-davinci-003',
-    prompt: `${basePromptPrefix}${req.body.apiCall}`,
+    prompt: `${basePromptPrefix}${req.body.apiCall} in the format 
+    1.activity: description
+    2.activity: description
+    3.activity: description
+    4.activity: description
+    5.activity: description`,
     temperature: 0.9,
     max_tokens: 250,
   });

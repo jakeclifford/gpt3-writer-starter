@@ -38,7 +38,7 @@ body {
 .header {    
     display: flex;
     flex-direction: column;
-    width: 100%;
+    max-width: 100%;
     align-items: center;
     color: #FFF
 }
@@ -258,7 +258,9 @@ textarea {
     transform: scale(1.1);
 }
 
-
+.output {
+    max-width: 99vw;
+}
 
 .output-header-container {
     place-content: center;
