@@ -51,7 +51,7 @@ const Home = () => {
             <h1>Travel GPT</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Enter a city and find some of the most exciting travel ideas</h2>
+            <h2>Enter a Location and activity and find some of the most exciting travel ideas</h2>
           </div>
           <div className="prompt-container">
             <input 

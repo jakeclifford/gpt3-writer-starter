@@ -27,7 +27,7 @@ body {
     flex-flow: column nowrap;
     gap: 10px;
     height: fit-content;
-    max-width: 95%;
+    max-width: 80%;
     overflow: auto;
     padding: 50px;
     position: relative;
@@ -345,7 +345,7 @@ textarea {
 @media (max-width: 600px) {
     .container {
         max-width: 400px;
-        width: 100%;
+        width: 80%;
     }
 
     .header-title h1 {
