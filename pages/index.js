@@ -61,7 +61,7 @@ const Home = () => {
               onChange={onUserChangedText}
             />
             <input 
-                placeholder="Enter Activity" 
+                placeholder="Enter Activity (Optional)" 
                 className="prompt-box" 
                 value={userActivity}
                 onChange={onUserChangedActivity}
